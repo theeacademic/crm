@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Housemaid List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+        h1 {
+            text-align: center;
+            color: #4CAF50;
+            margin-top: 60px;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 20px;
+            background-color: #ffffff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+        .header a {
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .header a:hover {
+            background-color: #0056b3;
+        }
+        .button-container {
+            text-align: center;
+            margin: 80px 0 20px;
+        }
+        .button-container a {
+            margin: 0 10px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .button-container a:hover {
+            background-color: #45a049;
+        }
+        .search-filter-form {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        .search-filter-form input, 
+        .search-filter-form select, 
+        .search-filter-form button {
+            padding: 10px;
+            margin: 5px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .search-filter-form button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .search-filter-form button:hover {
+            background-color: #45a049;
+        }
+        .table-container {
+            margin: 20px;
+            overflow-x: auto;
+            border: 1px solid #ddd;
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: black;
+            color: white;
+        }
+        tbody tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        tbody tr.travel-yes {
+            background-color: #90EE90; /* Light green for "Yes" */
+        }
+        tbody tr.travel-no {
+            background-color: #F08080; /* Light red for "No" */
+        }
+        tbody tr:hover {
+            background-color: #e9e9e9;
+        }
+        .form-container {
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            display: none;
+        }
+        .form-container h2 {
+            text-align: center;
+            color: #4CAF50;
+        }
+        .form-container input, 
+        .form-container select, 
+        .form-container button {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .form-container button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .form-container button:hover {
+            background-color: #45a049;
+        }
+        .next-of-kin-table-container {
+    margin-top: 20px;
+    overflow-x: auto; /* Enable horizontal scrolling for smaller screens */
+    background-color: #ffffff;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+}
+
+.next-of-kin-table-container table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 10px 0;
+    font-size: 14px; /* Slightly smaller font for readability */
+    text-align: left; /* Align content for better readability */
+}
+
+.next-of-kin-table-container th,
+.next-of-kin-table-container td {
+    padding: 12px;
+    border: 1px solid #ddd;
+}
+
+.next-of-kin-table-container th {
+    background-color: #4CAF50;
+    color: white;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.next-of-kin-table-container tbody tr:nth-child(even) {
+    background-color: #f2f2f2; /* Light gray for alternating rows */
+}
+
+.next-of-kin-table-container tbody tr:hover {
+    background-color: #e9e9e9; /* Subtle highlight on hover */
+}
+
+.next-of-kin-table-container td {
+    word-wrap: break-word; /* Ensure text wraps properly */
+}
+
+.next-of-kin-table-container .table-header {
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <div class="header">
+        <a href="{% url 'dashboard' %}">Dashboard</a>
+        <a href="{% url 'user_logout' %}">Logout</a>
+        <a href="{% url 'add_customer' %}">Add client</a>
+        <a href="{% url 'saved_list' %}">Saved list</a>
+    </div>
+
+    <h1>Housemaid Management</h1>
+
+    <!-- Button Section -->
+    <div class="button-container">
+        <a href="javascript:void(0)" onclick="toggleForm()">Add Housemaid</a>
+    </div>
+
+    <!-- Search and Filter Section -->
+    <form method="GET" class="search-filter-form">
+        <input type="text" name="q" placeholder="Search..." value="{{ query }}">
+        <select name="travel">
+            <option value="">All</option>
+            <option value="Yes" {% if travel_filter == 'Yes' %}selected{% endif %}>Yes</option>
+            <option value="No" {% if travel_filter == 'No' %}selected{% endif %}>No</option>
+        </select>
+        <button type="submit">Apply</button>
+    </form>
+
+    <!-- Add Housemaid Form Section -->
+    <div class="form-container" style="display: none;">
+        <h2>Add Housemaid</h2>
+        <form method="POST" action="{% url 'add_housemaid' %}">
+            {% csrf_token %}
+            <input type="text" name="name" placeholder="Name" required>
+            <input type="text" name="contact" placeholder="Contact" required>
+            <input type="text" name="passport" placeholder="Passport">
+            <label for="training">Training</label>
+            <select name="training" required>
+                <option value="" selected disabled>Select Training</option>
+                <option value="Exit">Exit</option>
+                <option value="Class">Class</option>
+            </select>
+            <input type="text" name="medical" placeholder="Medical (e.g., 'Cleared')" required>
+            <input type="text" name="pcc" placeholder="PCC (e.g., 'Approved')" required>
+            <input type="text" name="office" placeholder="Office">
+            <select name="travel" required>
+                <option value="" selected disabled>Travel (Yes/No)</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
+            <input type="text" name="comments" placeholder="Comments">
+            <h3>Next of Kin</h3>
+<input type="text" name="next_of_kin_name" placeholder="Next of Kin Name" required>
+<input type="text" name="next_of_kin_relationship" placeholder="Relationship (e.g., 'Sibling')" required>
+<input type="text" name="next_of_kin_contact" placeholder="Contact No" required>
+ <input type="text" name="next_of_kin_phone" placeholder="Phone No" required>
+<input type="text" name="next_of_kin_contact2" placeholder="Contact No 2" required>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <!-- Table Section -->
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th onclick="sortTable(1)">Name</th>
+                    <th>Contact</th>
+                    <th>Passport</th>
+                    <th>Training</th>
+                    <th>Next of Kin</th>
+                    <th>Medical</th>
+                    <th>PCC</th>
+                    <th>Office</th>
+                    <th>Travel</th>
+                    <th>Comments</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody data-sort-order="asc">
+                {% for housemaid in housemaids %}
+                    <tr class="{% if housemaid.travel == 'Yes' %}travel-yes{% elif housemaid.travel == 'No' %}travel-no{% endif %}">
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ housemaid.name }}</td>
+                        <td>{{ housemaid.contact }}</td>
+                        <td>{{ housemaid.passport }}</td>
+                        <td>
+                            <select name="training" onchange="updateTraining(this, '{{ housemaid.pk }}')">
+                                <option value="" {% if housemaid.training == "" %}selected{% endif %}></option>
+                                <option value="Exit" {% if housemaid.training == "Exit" %}selected{% endif %}>Exit</option>
+                                <option value="Class" {% if housemaid.training == "Class" %}selected{% endif %}>Class</option>
+                            </select>
+                        </td>
+                        <td>
+                            <button onclick="toggleNextOfKin('{{ housemaid.pk }}')">View</button>
+                            <!-- Next of Kin Table Container -->
+<div id="nextOfKin-{{ housemaid.pk }}" class="next-of-kin-table-container" style="display: none;">
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Name</th>
+<th>Relationship</th>
+<th>Phone No</th>
+<th>Contact</th>
+<th>Contact2</th>
+<th>Edit</th>
+</tr>
+</thead>
+<tbody>
+{% for kin in housemaid.next_of_kins.all %}
+<tr>
+<td>{{ forloop.counter }}</td>
+<td>{{ kin.name }}</td>
+<td>{{ kin.relationship }}</td>
+<td>{{ kin.phone }}</td>
+<td>{{ kin.contact }}</td>
+<td>{{ kin.contact2 }}</td>
+<td><a href="#" onclick="editRow(this)">Edit</a></td>
+</tr>
+{% empty %}
+<tr>
+<td colspan="7">No next of kin information available.</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+</div>
+
+<script>
+function editRow(link) {
+var row = link.parentNode.parentNode;
+var cells = row.querySelectorAll('td:not(:last-child)');
+cells.forEach(cell => {
+cell.contentEditable = true;
+});
+link.textContent = 'Save';
+link.onclick = function() {
+cells.forEach(cell => {
+cell.contentEditable = false;
+});
+// Here you can send the data to your server using an AJAX request
+console.log('Changes saved');
+link.textContent = 'Edit';
+link.onclick = function() {
+editRow(link);
+};
+};
+}
+</script>
+
+                        </td>
+                        <td>{{ housemaid.medical }}</td>
+                        <td>{{ housemaid.pcc }}</td>
+                        <td>{{ housemaid.office }}</td>
+                        <td>{{ housemaid.travel }}</td>
+                        <td>{{ housemaid.comments }}</td>
+                        <td>
+                            <a href="{% url 'edit_housemaid' housemaid.pk %}">Edit</a> |
+                            <form action="{% url 'delete_housemaid' housemaid.pk %}" method="POST" style="display:inline;">
+                                {% csrf_token %}
+                                <button type="submit">Delete</button>
+                            </form>
+                        </td>
+                    
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="9">No housemaids found.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- JavaScript Section -->
+    <script>
+        function toggleNextOfKin(housemaidId) {
+            const nextOfKinTable = document.getElementById(`nextOfKin-${housemaidId}`);
+            nextOfKinTable.style.display = nextOfKinTable.style.display === 'none' ? 'block' : 'none';
+        }
+        function toggleForm() {
+            const formContainer = document.querySelector('.form-container');
+            formContainer.style.display = formContainer.style.display === 'none' || formContainer.style.display === '' ? 'block' : 'none';
+        }
+        function updateTraining(selectElement, housemaidId) {
+            const selectedValue = selectElement.value;
+            fetch(`/update-training/${housemaidId}/`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRFToken": "{{ csrf_token }}"
+                },
+                body: JSON.stringify({ training: selectedValue })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert("Training updated successfully!");
+                } else {
+                    alert("Error updating training.");
+                }
+            })
+            .catch(error => console.error("Error:", error));
+        }
+    </script>
+   <script>
+    function sortTable(columnIndex) {
+        const table = document.querySelector(".table-container table tbody");
+        const rows = Array.from(table.querySelectorAll("tr"));
+        const isAscending = table.getAttribute("data-sort-order") === "asc";
+        const sortedRows = rows.sort((a, b) => {
+            const aText = a.children[columnIndex].innerText.trim().toLowerCase();
+            const bText = b.children[columnIndex].innerText.trim().toLowerCase();
+            return isAscending ? aText.localeCompare(bText) : bText.localeCompare(aText);
+        });
+
+        // Toggle sort order for the next click
+        table.setAttribute("data-sort-order", isAscending ? "desc" : "asc");
+
+        // Append sorted rows back to the table body
+        sortedRows.forEach(row => table.appendChild(row));
+    }
+</script>
+ 
+    
+</body>
+</html>
+
+

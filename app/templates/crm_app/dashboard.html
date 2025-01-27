@@ -1,0 +1,36 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+</head>
+<body>
+    <!-- Logout button at the top-left corner -->
+    <div class="logout-container">
+        <form action="{% url 'logout' %}" method="POST">
+            {% csrf_token %}
+            <button type="submit" class="logout-btn">Logout</button>
+        </form>
+    </div>
+
+    <div class="form-container">
+        <h2>Welcome, {{ user.username }}</h2>
+        <p>Choose an option:</p>
+
+        <!-- Buttons for redirecting to the respective pages -->
+        <div class="button-group">
+            <a href="{% url 'saved_list' %}" class="btn">Saved Client List</a>
+            <a href="{% url 'add_customer' %}" class="btn">Add Client</a>
+            <a href="{% url 'housemaid_form_list' %}" class="btn">Housemaid List</a>
+ <!-- New link for Housemaid List -->
+        </div>
+    </div>
+
+    <footer style="position: fixed; bottom: 0; left: 0; font-size: 0.9em; color: #555; background-color: #fff; padding: 5px 10px; z-index: 1000;">
+        © Rakea Software Developers
+    </footer>
+</body>
+</html>

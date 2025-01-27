@@ -1,0 +1,46 @@
+.form-container {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.button-group {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.btn {
+    padding: 10px 20px;
+    background-color: #4CAF50;  /* Green color */
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #45a049;
+}
+
+/* Logout button container */
+.logout-container {
+    position: absolute;
+    top: 10px;
+    right: 10px; /* Positioning to top-right corner */
+}
+
+/* Logout button styling */
+.logout-btn {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+
+.logout-btn:hover {
+    background-color: #e60000;
+}

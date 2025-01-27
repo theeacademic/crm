@@ -1,0 +1,46 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="{% static 'css/signup.css' %}">
+</head>
+<body>
+
+<div class="container">
+    <div class="form-container">
+        <h1>Client Registration</h1>
+        <form method="POST" action="{% url 'signup' %}">
+            {% csrf_token %}
+            <div>
+                {{ form.non_field_errors }} <!-- Display global errors -->
+            </div>
+            <div>
+                {{ form.username.label_tag }} <!-- Username -->
+                {{ form.username }}
+                {{ form.username.errors }} <!-- Display field-specific errors -->
+            </div>
+            <div>
+                {{ form.email.label_tag }} <!-- Email -->
+                {{ form.email }}
+                {{ form.email.errors }}
+            </div>
+            <div>
+                {{ form.password1.label_tag }} <!-- Password -->
+                {{ form.password1 }}
+                {{ form.password1.errors }}
+            </div>
+            <div>
+                {{ form.password2.label_tag }} <!-- Confirm Password -->
+                {{ form.password2 }}
+                {{ form.password2.errors }}
+            </div>
+            <button type="submit">Sign Up</button>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

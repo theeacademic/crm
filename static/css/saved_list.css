@@ -1,0 +1,192 @@
+/* General body styling */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+/* Logout button container */
+.logout-container {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+/* Logout button styling */
+.logout-btn {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+
+.logout-btn:hover {
+    background-color: #e60000;
+}
+
+/* Page heading */
+h1 {
+    margin-top: 20px;
+    text-align: center;
+    color: #333;
+}
+
+/* Search and filter form */
+.search-filter-form {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.search-filter-form input,
+.search-filter-form select,
+.search-filter-form button {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.search-filter-form button {
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+}
+
+.search-filter-form button:hover {
+    background-color: #45a049;
+}
+
+/* Table styling */
+table {
+    width: 90%; /* Make the table fill most of the page */
+    border-collapse: collapse;
+    margin: 0 auto;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+/* Table header */
+table thead tr {
+    background-color: #333;
+    color: white;
+    text-align: left;
+}
+
+table th, table td {
+    padding: 12px 15px;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+table tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+/* Edit and Delete buttons */
+.edit-btn, .delete-btn {
+    text-decoration: none;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.edit-btn {
+    background-color: #007bff;
+}
+
+.edit-btn:hover {
+    background-color: #0056b3;
+}
+
+.delete-btn {
+    background-color: #ff4d4d;
+}
+
+.delete-btn:hover {
+    background-color: #e60000;
+}
+
+/* Responsive design for mobile */
+@media (max-width: 768px) {
+    table {
+        width: 100%; /* Make the table fill the screen */
+    }
+
+    .search-filter-form {
+        flex-direction: column; /* Stack the inputs vertically */
+        align-items: center;
+    }
+
+    .search-filter-form input,
+    .search-filter-form select,
+    .search-filter-form button {
+        width: 90%; /* Adjust width for mobile */
+        margin-bottom: 10px;
+    }
+
+    table thead {
+        display: none; /* Hide table headers on mobile */
+    }
+
+    table tbody tr {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-bottom: 20px;
+        background-color: white;
+        padding: 15px;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    table td {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px 0;
+        border: none;
+    }
+
+    table td:before {
+        content: attr(data-label); /* Add labels for each cell */
+        font-weight: bold;
+        flex-basis: 50%;
+    }
+}
+
+.back-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #333; /* Dark background */
+    color: #fff; /* White text */
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 5px;
+    text-align: center;
+    transition: background-color 0.3s ease;
+}
+
+.back-btn:hover {
+    background-color: #555; /* Lighter shade on hover */
+}
+
+.back-btn:active {
+    background-color: #222; /* Even darker shade when clicked */
+}

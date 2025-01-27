@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Housemaid</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
+        }
+        h1 {
+            text-align: center;
+            color: #4CAF50;
+            margin-top: 60px;
+        }
+        .form-container {
+            margin: 40px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+        }
+        .form-container h2 {
+            text-align: center;
+            color: #4CAF50;
+        }
+        .form-container input, 
+        .form-container select, 
+        .form-container button, 
+        .form-container textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .form-container button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .form-container button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>Edit Housemaid</h1>
+    <div class="form-container">
+        <h2>Edit Housemaid Details</h2>
+<form method="POST" action="{% url 'edit_housemaid' housemaid.id %}">
+    {% csrf_token %}
+    <label for="name">Name</label>
+    <input type="text" name="name" value="{{ housemaid.name }}" required>
+
+    <label for="contact">Contact</label>
+    <input type="text" name="contact" value="{{ housemaid.contact }}" required>
+
+    <label for="passport">Passport</label>
+    <input type="text" name="passport" value="{{ housemaid.passport }}">
+
+    <label for="training">Training</label>
+    <input type="text" name="training" value="{{ housemaid.training }}">
+
+    <label for="medical">Medical</label>
+    <input type="text" name="medical" value="{{ housemaid.medical }}">
+
+    <label for="pcc">PCC</label>
+    <input type="text" name="pcc" value="{{ housemaid.pcc }}">
+    
+    <label for="office">Office</label>
+    <input type="text" name="office" value="{{ housemaid.office }}">
+
+    <label for="travel">Travel</label>
+    <select name="travel">
+        <option value="Yes" {% if housemaid.travel == "Yes" %}selected{% endif %}>Yes</option>
+        <option value="No" {% if housemaid.travel == "No" %}selected{% endif %}>No</option>
+    </select>
+    
+    <label for="comments">Comments</label>
+    <input type="text" name="comments" value="{{ housemaid.comments }}">
+
+            <button type="submit">Go to housemaid_form_list</button>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,90 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Customer</title>
+    <link rel="stylesheet" href="{% static 'css/add_customer.css' %}">
+</head>
+<body>
+    <!-- Header Container for Back and Logout Buttons -->
+    <div class="header-container">
+        <!-- Back Button -->
+        <a href="javascript:history.back()" class="back-btn">Back</a>
+        <!-- Housemaid Button -->
+    <a href="/housemaid">
+    <button type="button" class="housemaid-btn">Housemaid</button>
+</a>
+
+
+    <!-- Saved List Button -->
+    <a href="/saved_list">
+    <button type="button" class="saved-btn">Saved</button>
+</a>
+
+
+
+        
+        <!-- Logout Button -->
+        <form action="{% url 'logout' %}" method="POST" style="display: inline;">
+            {% csrf_token %}
+            <button type="submit" class="logout-btn">Logout</button>
+        </form>
+    </div>
+
+    <div class="form-container">
+        <h2>Add Customer Details</h2>
+        <form method="POST" class="customer-form">
+            {% csrf_token %}
+            
+            <!-- Display the customer form fields -->
+            {{ form.as_p }}  <!-- This renders the customer form fields like name, email, age, etc. -->
+            
+            <!-- The gender dropdown field with a blank first option -->
+            <div class="form-group">
+                <label for="id_gender">Gender</label>
+                <select name="gender" id="id_gender">
+                    <option value="">Select Gender</option> <!-- Blank option -->
+                    <option value="M" {% if form.gender.value == 'M' %}selected{% endif %}>Male</option>
+                    <option value="F" {% if form.gender.value == 'F' %}selected{% endif %}>Female</option>
+                </select>
+            </div>
+
+            <!-- Dynamic field container -->
+            <div id="additionalFieldsContainer"></div>
+
+            <!-- Button to add a new field -->
+            <button type="button" id="addFieldBtn">+</button>
+
+            <button type="submit" class="submit-btn">Add Customer</button>
+        </form>
+    </div>
+
+    <script>
+        // Function to create a new field with remove button
+        function createNewField() {
+            var newFieldDiv = document.createElement('div');
+            newFieldDiv.classList.add('new-field');
+            
+            newFieldDiv.innerHTML = `
+                <input type="text" name="extra_field[]" placeholder="Additional Info" required />
+                <button type="button" class="remove-btn">-</button>
+            `;
+
+            // Attach the remove function to the remove button
+            newFieldDiv.querySelector('.remove-btn').addEventListener('click', function() {
+                newFieldDiv.remove();
+            });
+
+            document.getElementById('additionalFieldsContainer').appendChild(newFieldDiv);
+        }
+
+        // Add event listener for the add new field button
+        document.getElementById('addFieldBtn').addEventListener('click', createNewField);
+    </script>
+    <footer style="position: fixed; bottom: 0; left: 0; font-size: 0.9em; color: #555; background-color: #fff; padding: 5px 10px; z-index: 1000;">
+        © Rakea Software Developers
+    </footer>
+</body>
+</html>
